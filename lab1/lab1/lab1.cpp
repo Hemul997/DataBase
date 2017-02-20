@@ -23,10 +23,18 @@ void ReadDB(fstream &file, DataBase &dataBase)
 	while (getline(file, str))
 	{
 		boost::split(tempVector, str, boost::is_any_of(","));
-		if (*(tempVector[4].begin()) == '\"')
+		if (tempVector[0] != "id")
 		{
-			nameOfAutor = tempVector[4].substr(1, tempVector[4].length() - 2);
+			if (*(tempVector[4].begin()) == '\"')
+			{
+				nameOfAutor = tempVector[4].substr(1, tempVector[4].length() - 2);
+			}
+			else
+			{
+				nameOfAutor = tempVector[4];
+			}
 			int id = stoi(tempVector[0]);
+			
 			auto findInDataBase = dataBase.find(nameOfAutor);
 			if (findInDataBase == dataBase.end())
 			{
